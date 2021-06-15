@@ -20,11 +20,8 @@ Vue.component('product', {
           :style="{ backgroundColor: variant.variantColor}" 
         >
         </div>
-        <div class="cart">
-          <p> Cart({{ cart }}) </p>
-        </div>
         <button 
-          @click="addtoCart"
+          @click="addtoCart()"
           :class="{ disabledButton: !inStock }"
         >
           Add to cart
@@ -33,7 +30,7 @@ Vue.component('product', {
     </div>
   `,
   props: {
-    premiun: {
+    premium: {
       type: Boolean,
       required: true,
     },
@@ -58,7 +55,6 @@ Vue.component('product', {
           variantQuantity: 0,
         }
       ],
-      cart: 0,
     };
   },
   computed: {
@@ -72,7 +68,7 @@ Vue.component('product', {
       return this.variants[this.selectedVariant].variantQuantity;
     },
     shipping() {
-      if (this.premiun) {
+      if (this.premium) {
         return 'Free';
       } else {
         return 2.99
@@ -81,10 +77,91 @@ Vue.component('product', {
   },
   methods: {
     addtoCart() {
-      this.cart += 1
+      this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId);
     },
     updateProduct(index) {
       this.selectedVariant = index;
+    },
+  },
+});
+
+Vue.component('reviews', {
+  template: `
+  <div>
+    <h1 class="review-title">Reviews</h1>
+    <div class="review-list">
+      <ul v-if="reviews.length > 0">
+        <li v-for="review in reviews">
+          <p>{{review.name}}</p>
+          <p>{{review.review}}</p>
+          <p>Rating: {{review.rating}}</p>
+          <p>Recomend: {{review.recomend}}</p>
+        </li>
+      </ul>
+      <p v-else> There are no reviews yet</p>
+    </div>
+    <form class="review-form" @submit.prevent="onSubmit">
+        <div v-if="errors.length > 0">
+          <b> Please correct the following error(s): </b>
+          <ul>
+          <li v-for="error in errors"> {{ error }} </li>
+          </ul>  
+        </div>
+        <label for="name">Name:</label>
+        <input v-model="name" type="text">
+        <label for="review">Review:</label>
+        <textarea v-model="review"></textarea>
+        <p>
+          <label for="rating" >Rating:</label>
+          <select v-model="rating">
+            <option>5</option>
+            <option>4</option>
+            <option>3</option>
+            <option>2</option>
+            <option>1</option>
+          </select>
+        </p>
+        <div>
+          <p>Would you recommend this product?</p>
+          <label for="uno">Yes</label>
+          <input type="radio" value="Yes" v-model="recomend">
+          <label for="Dos">No</label>
+          <input type="radio" value="No" v-model="recomend">     
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+  </div>
+  `,
+  data() {
+    return {
+      reviews: [],
+      name: null,
+      review: null,
+      rating: null,
+      recomend: null,
+      errors:[]
+    }
+  },
+  methods: {
+    onSubmit() {
+      this.errors = [];
+      if (this.name && this.review && this.rating) {
+        const review = {
+          name: this.name,
+          review: this.review,
+          rating: this.rating,
+          recomend: this.recomend,
+        };
+        this.reviews.push(review);
+        this.name = null;
+        this.review = null;
+        this.rating = null;
+      } else {
+        if (!this.name) this.errors.push('Name required.')
+        if (!this.review) this.errors.push('Review required.')
+        if (!this.rating) this.errors.push('Rating required.')
+        if (!this.recomend) this.errors.push('Recomend required.')
+      }
     },
   },
 });
@@ -93,6 +170,12 @@ Vue.component('product', {
 const app = new Vue({
   el: '#app',
   data: {
-    premiun: true,
+    premium: true,
+    cart: [],
+  },
+  methods: {
+    updateCart(id) {
+      this.cart.push(id);
+    }
   },
 });
