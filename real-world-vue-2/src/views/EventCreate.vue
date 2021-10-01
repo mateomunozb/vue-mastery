@@ -37,38 +37,39 @@
 </template>
 
 <script>
-import Datepicker from 'vuejs-datepicker';
+import Datepicker from 'vuejs-datepicker'
 
 export default {
   components: {
-    Datepicker,
+    Datepicker
   },
   data() {
-    const times = [];
+    const times = []
     for (let i = 1; i <= 24; i++) {
-      times. push (i + ':00');
+      times.push(i + ':00')
     }
     return {
       event: this.createFreshEventObject(),
       times,
-      categories: this.$store.state.categories,
+      categories: this.$store.state.categories
     }
   },
   methods: {
     createEvent() {
-      this.$store.dispatch('event/createEvent', this.event). then(() => {
-        this.$router.push({
-          name: 'event-show',
-          params: { id: this.event.id},
-        });
-        this.event = this. createFreshEventObject();
-      }).catch(() => {
-        console.log('There was a problem creating your event');
-      });
+      this.$store
+        .dispatch('event/createEvent', this.event)
+        .then(() => {
+          this.$router.push({
+            name: 'event-show',
+            params: { id: this.event.id }
+          })
+          this.event = this.createFreshEventObject()
+        })
+        .catch(() => {})
     },
     createFreshEventObject() {
-      const user = this.$store.state.user.user;
-      const id = Math.floor(Math.random() * 10000000);
+      const user = this.$store.state.user.user
+      const id = Math.floor(Math.random() * 10000000)
       return {
         id: id,
         category: '',
@@ -78,11 +79,10 @@ export default {
         location: '',
         date: '',
         time: '',
-        attendees: [],
-      };
-      
-    },
-  },
+        attendees: []
+      }
+    }
+  }
 }
 </script>
 

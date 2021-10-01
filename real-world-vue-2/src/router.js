@@ -12,18 +12,18 @@ export default new Router({
     {
       path: '/',
       name: 'event-list',
-      component: EventList,
+      component: EventList
     },
     {
       path: '/event/:id',
       name: 'event-show',
       component: EventShow,
-      props: true,
+      props: true
     },
     {
       path: '/event/create',
       name: 'event-create',
-      component: EventCreate,
-    },
+      component: EventCreate
+    }
   ]
 })

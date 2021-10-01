@@ -15,15 +15,10 @@ requireComponent.keys().forEach(fileName => {
   const componentConfig = requireComponent(fileName)
 
   const componentName = upperFirst(
-    camelCase(
-      fileName.replace(/^\.\/(.*)\.\w+$/, '$1')
-    )
+    camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1'))
   )
 
-  Vue.component(
-    componentName,
-    componentConfig.default || componentConfig
-  )
+  Vue.component(componentName, componentConfig.default || componentConfig)
 })
 
 Vue.config.productionTip = false

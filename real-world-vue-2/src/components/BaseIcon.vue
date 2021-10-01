@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import feather from 'feather-icons';
+import feather from 'feather-icons'
 
 export default {
   props: {
-    name: String, 
+    name: String,
     width: {
       type: [Number, String],
       default: 24
@@ -25,28 +25,28 @@ export default {
       return feather.icons['users'].toSvg({
         class: 'icon',
         width: this.width,
-        height: this.height,
-      });
-    },
-  },
+        height: this.height
+      })
+    }
+  }
 }
 </script>
 
 <style scoped>
-  .icon-wrapper {
+.icon-wrapper {
   display: inline-flex;
   align-items: center;
   color: rgba(0, 0, 0, 0.4);
   font-size: 1rem;
   font-weight: 600;
   margin-right: 6px;
-  }
-  .icon {
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    fill: none;
-    margin-right: 6px;
-  }
+}
+.icon {
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  margin-right: 6px;
+}
 </style>

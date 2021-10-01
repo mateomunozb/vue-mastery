@@ -22,40 +22,40 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'EventShow',
   props: ['id'],
   computed: {
     ...mapState({
-      event: state => state.event.event,
-    }),
+      event: state => state.event.event
+    })
   },
   created() {
-    this.fetchEvent(this.id);
+    this.fetchEvent(this.id)
   },
   methods: mapActions('event', ['fetchEvent'])
-};
+}
 </script>
 
 <style scoped>
-  .location {
-    margin-bottom: 0;
-  }
-  .location > .icon {
-    margin-left: 10px;
-  }
-  .event-header > .title {
-    margin: 0;
-  }
-  .list-group {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .list-group > .list-item {
-    padding: 1em 0;
-    border-bottom: solid 1px #e5e5e5;
-  }
+.location {
+  margin-bottom: 0;
+}
+.location > .icon {
+  margin-left: 10px;
+}
+.event-header > .title {
+  margin: 0;
+}
+.list-group {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.list-group > .list-item {
+  padding: 1em 0;
+  border-bottom: solid 1px #e5e5e5;
+}
 </style>
