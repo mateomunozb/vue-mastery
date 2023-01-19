@@ -19,3 +19,4 @@ npm run build
 ```
 npm run lint
 ```
+json-server -d 1500 db.json
