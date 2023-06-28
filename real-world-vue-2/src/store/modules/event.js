@@ -30,6 +30,7 @@ export const actions = {
       .postEvent(event)
       .then(() => {
         commit('ADD_EVENT', event)
+        commit('SET_EVENT', event)
         const notification = {
           type: 'success',
           message: 'Your event has been created!'
